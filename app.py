@@ -11,3 +11,9 @@ def index():
 @app.route("/ma-deuxieme-page")
 def page2():
     return render_template("page-2.html")
+
+
+@app.route("/countdown")
+def countdown():
+    return render_template("countdown.html")
+      
