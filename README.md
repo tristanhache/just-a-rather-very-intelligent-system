@@ -34,7 +34,7 @@ https://devcenter.heroku.com/articles/heroku-cli
 6. installe les packages python que tu auras besoin
 	`python3 -m pip install -r requirements.txt`
 7. exécute l'application localement, dans ton terminal:
-	`FLASK_ENV=development flask run`
+	`python -m flask run`
 8. Dans ton navigateur web (chrome), navige sur:
 	 http://localhost:5000
 
