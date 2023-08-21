@@ -1,16 +1,18 @@
-from flask import Flask, render_template, request, session, jsonify
+from flask import Flask, render_template, request, session
 from flask_socketio import SocketIO, join_room, leave_room, emit
-
 import secrets
+
+app = Flask(__name__)
 
 # Generate a random secret key with 24 bytes (48 characters)
 secret_key = secrets.token_hex(24)
 
-app = Flask(__name__)
+# Set the secret key for the Flask application
 app.config['SECRET_KEY'] = secret_key
+
 socketio = SocketIO(app)
 
-# Dictionary to store chat messages (replace with a database in production)
+# Dictionary to store chat messages for different rooms
 chat_messages = {}
 
 @app.route('/')
@@ -48,7 +50,7 @@ def handle_message(data):
         username = data.get('username', 'Anonymous')
         message = data['message']
 
-        # Store the message (replace with database storage in production)
+        # Store the message
         if room not in chat_messages:
             chat_messages[room] = []
         chat_messages[room].append({'username': username, 'message': message})
