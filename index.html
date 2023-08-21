@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Application</title>
+</head>
+<body>
+    <h1>Chat Application</h1>
+    <div id="chat-box">
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    <form id="message-form" method="post" action="/send_message">
+        <input type="text" id="message" name="message" placeholder="Type a message...">
+        <button type="submit">Send</button>
+    </form>
+</body>
+</html>
