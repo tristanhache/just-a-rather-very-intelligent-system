@@ -3,17 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Chat Application</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.2/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        function sendMessage() {
+            var message = document.getElementById('message').value;
+            if (message) {
+                socket.emit('message', { message: message });
+                document.getElementById('message').value = '';
+            }
+        }
+
+        socket.on('message', function(data) {
+            var chat = document.getElementById('chat');
+            var messageElement = document.createElement('div');
+            messageElement.innerHTML = '<b>' + data.username + ':</b> ' + data.message;
+            chat.appendChild(messageElement);
+        });
+    </script>
 </head>
 <body>
-    <h1>Chat Application</h1>
-    <div id="chat-box">
-        {% for message in messages %}
-            <p>{{ message }}</p>
-        {% endfor %}
-    </div>
-    <form id="message-form" method="post" action="/send_message">
-        <input type="text" id="message" name="message" placeholder="Type a message...">
-        <button type="submit">Send</button>
-    </form>
+    <div id="chat"></div>
+    <input type="text" id="message" placeholder="Enter a message">
+    <button onclick="sendMessage()">Send</button>
 </body>
 </html>
